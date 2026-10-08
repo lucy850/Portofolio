@@ -145,6 +145,22 @@ const projects = {
                 const manualArt=['art.png','art5.png','art7.png'];
                 const artworkFigures=(images,label)=>images.map((src,index)=>`<figure><img src="${src}" alt="${label} ${index+1}" loading="lazy"><figcaption><span>${String(index+1).padStart(2,'0')}</span>${label} ${index+1}</figcaption></figure>`).join('');
                 section.innerHTML=`<div class="case-top"><a class="back-link" href="projek.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Projects</a></div><header class="case-hero"><p class="category">${project.category}</p><h1>${project.title}</h1><p class="case-overview">${project.overview}</p></header><nav class="artwork-nav" aria-label="Pilih kategori karya"><a href="#digital-art"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Digital Art · ${digitalArt.length} karya</a><a href="#poster-art"><i class="fa-regular fa-images" aria-hidden="true"></i> Poster · ${posterArt.length} karya</a><a href="#manual-art"><i class="fa-solid fa-pencil" aria-hidden="true"></i> Manual Art · ${manualArt.length} karya</a></nav><div class="artwork-grid"><section class="artwork-slot" id="digital-art"><span>01 / DIGITAL COLLECTION</span><h2>Digital Art</h2><p>Eksplorasi karya ilustrasi digital.</p><div class="artwork-gallery">${artworkFigures(digitalArt,'Digital Art')}</div></section><section class="artwork-slot" id="poster-art"><span>02 / POSTER COLLECTION</span><h2>Poster</h2><p>Kumpulan karya poster.</p><div class="artwork-gallery">${artworkFigures(posterArt,'Poster')}</div></section><section class="artwork-slot" id="manual-art"><span>03 / MANUAL COLLECTION</span><h2>Manual Art</h2><p>Karya yang dibuat dengan media manual.</p><div class="artwork-gallery">${artworkFigures(manualArt,'Manual Art')}</div></section></div>`;
+                const artworkViewer=document.createElement('dialog');
+                artworkViewer.className='artwork-viewer';
+                artworkViewer.setAttribute('aria-label','Artwork preview');
+                artworkViewer.innerHTML='<img alt=""><button type="button">Close</button>';
+                section.append(artworkViewer);
+                section.addEventListener('click',event=>{
+                    const artwork=event.target.closest('.artwork-gallery figure img');
+                    if(!artwork)return;
+                    const preview=artworkViewer.querySelector('img');
+                    preview.src=artwork.currentSrc||artwork.src;
+                    preview.alt=artwork.alt;
+                    artworkViewer.showModal();
+                });
+                artworkViewer.addEventListener('click',event=>{
+                    if(event.target===artworkViewer||event.target.closest('button'))artworkViewer.close();
+                });
                 return;
             }
             if(projectKey==='student-performance'){

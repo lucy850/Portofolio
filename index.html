@@ -179,7 +179,7 @@
         .experience-card h3 { margin:0;color:var(--ink);font-size:1.05rem;line-height:1.45;font-weight:750; }
         .experience-role { margin:.35rem 0 .85rem;color:var(--accent);font-size:.77rem;font-weight:700; }
         .experience-card>p:last-child { margin:0;color:var(--muted);font-size:.82rem;line-height:1.75; }
-        @media (max-width:640px) { .experience-section { padding-top:3rem;padding-bottom:3rem; } .experience-heading { align-items:flex-start;flex-direction:column; } .experience-grid { grid-template-columns:24px minmax(0,1fr);gap:0 .9rem; } .experience-grid::before,.experience-grid::after { left:12px; } .experience-card,.experience-card:nth-child(even) { grid-column:2;grid-row:auto;margin-bottom:1rem;padding:1.15rem; } .experience-card::before,.experience-card:nth-child(even)::before { left:-1.57rem;right:auto;top:1.45rem;width:.9rem;height:.9rem;border-width:2px; } .experience-card:last-child { margin-bottom:0; } }
+        @media (max-width:640px) { .experience-section { padding-top:3rem;padding-bottom:3rem; } .experience-heading { align-items:flex-start;flex-direction:column; } .experience-grid { grid-template-columns:24px minmax(0,1fr);gap:0 .9rem; } .experience-grid::before,.experience-grid::after { left:12px; } .experience-grid .experience-card:nth-child(n) { grid-column:2;grid-row:auto;margin-bottom:1rem;padding:1.15rem;border:1px solid var(--line);border-radius:1rem;background:var(--surface);touch-action:manipulation;transition:transform .2s,border-color .2s,background .2s; } .experience-grid .experience-card:nth-child(n):hover { transform:none;border-color:var(--line);box-shadow:none;background:var(--surface); } .experience-grid .experience-card:nth-child(n):active { transform:scale(.985);border-color:var(--accent);background:var(--surface-soft); } .experience-card::before,.experience-card:nth-child(even)::before { left:-1.57rem;right:auto;top:1.45rem;width:.9rem;height:.9rem;border-width:2px; } .experience-card:last-child { margin-bottom:0; } }
         .gallery-stack { position:relative;width:min(100%,760px);height:478px;margin:0 auto;touch-action:pan-y;user-select:none; }
         .gallery-card { position:absolute;top:0;left:50%;width:100%;height:420px;overflow:hidden;border-radius:1rem;border:1px solid var(--line);background:var(--surface);box-shadow:0 14px 35px rgba(0,0,0,.22);cursor:grab;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .45s,filter .45s,rotate .7s,border-color .35s,box-shadow .45s; }
         .gallery-card:active { cursor:grabbing; }
@@ -227,8 +227,9 @@
         .contact-intro p { color:var(--muted);font-size:.88rem;line-height:1.75;max-width:350px; }
         .contact-intro-mark { display:grid;place-items:center;width:48px;height:48px;margin-bottom:1.2rem;border-radius:15px;background:var(--surface);border:1px solid var(--line);color:var(--accent);font-size:1.2rem;box-shadow:0 8px 22px rgba(0,0,0,.1); }
         .contact-direct { display:flex;flex-direction:column;align-items:stretch;gap:.7rem;margin-top:1.5rem; }
-        .contact-method { position:relative;display:flex;align-items:center;gap:.8rem;padding:.8rem;border:1px solid var(--line);border-radius:.85rem;background:var(--surface);color:var(--ink);text-decoration:none;transition:transform .22s,border-color .22s,background .22s; }
+        .contact-method { position:relative;display:flex;align-items:center;gap:.8rem;min-height:58px;padding:.8rem;border:1px solid var(--line);border-radius:.85rem;background:var(--surface);color:var(--ink);text-decoration:none;transition:transform .22s,border-color .22s,background .22s;touch-action:manipulation; }
         .contact-method:hover { transform:translateY(-2px);border-color:var(--accent);background:var(--surface-soft); }
+        .contact-method:focus-visible,.contact-actions button:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 78%,white);outline-offset:3px; }
         .contact-method-icon { flex:none;display:grid;place-items:center;width:39px;height:39px;border-radius:.7rem;background:var(--surface-soft);color:var(--accent);font-size:1rem; }
         .contact-method-copy { min-width:0;display:grid;gap:.15rem; }
         .contact-method-copy small { color:var(--muted);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase; }
@@ -315,6 +316,7 @@
             .contact-direct { display:grid;grid-template-columns:repeat(2,minmax(0,1fr)); }
             .contact-actions>* { flex:1 1 180px; }
         }
+        @media (max-width:640px) { .contact-direct { grid-template-columns:1fr;gap:.6rem; } .contact-method { min-height:62px;padding:.85rem; } .contact-actions { display:grid;grid-template-columns:1fr; } .contact-actions>* { width:100%;min-height:50px; } }
         @media (min-width:640px) { .nav-panel { right:24px; } }
         @media (min-width:1024px) { .nav-panel { right:max(calc((100vw - 1280px)/2 + 32px),32px); } }
         @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important; } .skill-group.is-revealed,.starfield span,.content-section.is-revealed .section-heading::after { animation:none; } }
@@ -368,9 +370,9 @@
                 <div class="lanyard-shell px-1 pt-4 pb-3">
                     <p class="text-center text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">Interactive lanyard</p>
                     <div class="lanyard-stage h-[620px] sm:h-[640px] w-full relative overflow-hidden">
-                        <canvas id="lanyardCanvas" class="w-full h-full" role="img" aria-label="Foto Andini pada lanyard dapat diarahkan dan ditarik; tali lanyard tetap diam"></canvas>
+                        <canvas id="lanyardCanvas" class="w-full h-full" role="img" aria-label="Tarik foto Andini untuk menggerakkan lanyard yang tersambung"></canvas>
                     </div>
-                    <p class="text-[11px] text-slate-500 text-center">Arahkan pointer atau tarik foto Andini untuk menggerakkannya.</p>
+                    <p class="text-[11px] text-slate-500 text-center">Arahkan pointer atau tarik foto Andini untuk mengayunkan lanyard.</p>
                 </div>
             </div>
             <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
