@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -277,6 +277,11 @@
         .project-modal button:hover { transform:rotate(90deg);background:var(--surface-soft);color:var(--ink);border-color:var(--accent); }
         @media (max-width: 900px) { .projects-grid,.certificate-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .about-composition { grid-template-columns:minmax(0,.72fr) minmax(0,1.45fr) minmax(0,.72fr);gap:.5rem; } .about-lanyard { height:420px; } #aboutLanyardMountOne { height:470px; } .hero-content { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:1.5rem; } .hero-portrait { width:min(100%,175px); } }
         @media (max-width: 640px) {
+            .site-brand { font-size:1rem!important;line-height:1.2;white-space:nowrap; }
+            .theme-toggle { width:58px;height:34px;padding:0 7px; }
+            .theme-toggle i { font-size:.75rem; }
+            .theme-toggle-thumb { top:4px;width:24px;height:24px; }
+            .theme-toggle[aria-checked="true"] .theme-toggle-thumb { transform:translateX(28px); }
             .content-section { width:min(100% - 1.25rem,1180px);padding:2.2rem 0; }
             #hero { min-height:auto;padding-top:6rem!important;padding-bottom:1.25rem!important; }
             .scroll-wave { left:-34vw;width:168vw;height:250px;bottom:-6rem;opacity:.42; }
@@ -334,7 +339,7 @@
     <!-- NAVBAR -->
     <nav class="fixed top-0 left-0 w-full z-50 glass-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 min-h-[72px] flex items-center justify-between gap-4">
-            <a href="#hero" class="text-xl font-bold tracking-tight text-white">Andini<span class="text-blue-400">Kemuning P</span></a>
+            <a href="#hero" class="site-brand text-xl font-bold tracking-tight text-white">Andini<span class="text-blue-400">Kemuning P</span></a>
             <div class="nav-actions">
                 <button id="themeBtn" class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to light mode" title="Switch theme"><i class="fa-solid fa-sun theme-sun" aria-hidden="true"></i><i class="fa-solid fa-moon theme-moon" aria-hidden="true"></i><span class="theme-toggle-thumb" aria-hidden="true"></span></button>
                 <button id="menuBtn" class="hamburger-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navPanel"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span></button>
@@ -460,7 +465,7 @@
                     <p>Mendukung pengelolaan web dengan fokus pada pengalaman pengguna dan tampilan front-end yang rapi, responsif, serta mudah digunakan.</p>
                 </article>
                 <article class="experience-card" data-reveal-item>
-                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-headset"></i></span><span class="experience-type">Part-time Â· 8 bulan</span></div>
+                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-headset"></i></span><span class="experience-type">Part-time · 8 bulan</span></div>
                     <h3>Host Live - Hijab Syandana</h3>
                     <p class="experience-role">Live Commerce &amp; Customer Engagement</p>
                     <p>Memandu sesi live untuk memperkenalkan produk hijab, menjawab pertanyaan audiens, dan menjaga interaksi tetap aktif selama siaran.</p>
@@ -472,7 +477,7 @@
                     <p>Mengembangkan ide dan membuat konten seputar kecantikan, ulasan skincare, serta lifestyle untuk membangun komunikasi yang menarik dengan audiens.</p>
                 </article>
                 <article class="experience-card" data-reveal-item>
-                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-shirt"></i></span><span class="experience-type">Magang Â· 6 bulan Â· 2022</span></div>
+                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-shirt"></i></span><span class="experience-type">Magang · 6 bulan · 2022</span></div>
                     <h3>Fashion Design Intern</h3>
                     <p class="experience-role">Fashion Design</p>
                     <p>Mendapatkan pengalaman magang di bidang desain fashion selama enam bulan pada 2022.</p>
