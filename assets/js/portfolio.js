@@ -278,12 +278,20 @@
                 const rect = canvas.getBoundingClientRect();
                 return { x:event.clientX-rect.left, y:event.clientY-rect.top };
             }
-            canvas.addEventListener('pointerenter', () => { motion.hovered = true; });
-            canvas.addEventListener('pointerleave', () => { if (!motion.dragging) motion.hovered = false; });
+            function isOverPortrait(point) {
+                const geometry = lanyardGeometry();
+                const centerY = geometry.anchorY + motion.y + geometry.photoY + geometry.photoHeight/2;
+                return point.x >= width/2-geometry.photoWidth/2 && point.x <= width/2+geometry.photoWidth/2
+                    && point.y >= centerY-geometry.photoHeight/2 && point.y <= centerY+geometry.photoHeight/2;
+            }
+            canvas.addEventListener('pointerleave', () => {
+                if (!motion.dragging) { motion.hovered = false; canvas.style.cursor = 'default'; }
+            });
             canvas.addEventListener('pointerdown', event => {
+                const point = canvasPoint(event);
+                if (!isOverPortrait(point)) return;
                 motion.dragging = true;
                 canvas.setPointerCapture(event.pointerId);
-                const point = canvasPoint(event);
                 motion.startX = point.x; motion.startY = point.y;
                 motion.startAngle = motion.angle; motion.startOffsetY = motion.y;
                 motion.lastX = point.x; motion.lastY = point.y; motion.lastTime = performance.now();
@@ -301,10 +309,17 @@
                     motion.yVelocity = clamp((point.y-motion.lastY)/dt, -220, 220);
                     motion.lastX = point.x; motion.lastY = point.y; motion.lastTime = now;
                 } else {
-                    const dx = (point.x-width/2)/(width/2 || 1);
-                    const dy = (point.y-height/2)/(height/2 || 1);
-                    motion.targetAngle = clamp(dx*.045, -lanyardGeometry().safeAngle, lanyardGeometry().safeAngle);
-                    motion.targetY = clamp(dy*5, -7, 7);
+                    motion.hovered = isOverPortrait(point);
+                    canvas.style.cursor = motion.hovered ? 'grab' : 'default';
+                    if (motion.hovered) {
+                        const dx = (point.x-width/2)/(width/2 || 1);
+                        const dy = (point.y-height/2)/(height/2 || 1);
+                        motion.targetAngle = clamp(dx*.045, -lanyardGeometry().safeAngle, lanyardGeometry().safeAngle);
+                        motion.targetY = clamp(dy*5, -7, 7);
+                    } else {
+                        motion.targetAngle = 0;
+                        motion.targetY = 0;
+                    }
                 }
             });
             function releaseLanyard() {
@@ -366,10 +381,6 @@
                 const anchorX = width/2;
                 const {anchorY,strapEnd,photoY,availableHeight,maxPhotoWidth,photoWidth,photoHeight} = geometry;
                 const clipY = strapEnd+5;
-                ctx.save();
-                ctx.translate(anchorX, anchorY+motion.y);
-                ctx.rotate(motion.angle);
-
                 // Woven strap with restrained stitching and a soft fabric highlight.
                 const strapGradient = ctx.createLinearGradient(-21,0,21,0);
                 strapGradient.addColorStop(0,'#263c53'); strapGradient.addColorStop(.48,'#496783'); strapGradient.addColorStop(1,'#263c53');
@@ -380,21 +391,24 @@
                 ctx.strokeStyle = 'rgba(17,30,45,.5)'; ctx.lineWidth = 2;
                 ctx.beginPath(); ctx.moveTo(0,12); ctx.lineTo(0,strapEnd-7); ctx.stroke();
 
-                // Portrait is drawn at its full aspect ratio, with no panel, frame, or clipping.
+                // Only the portrait responds to pointer movement; the strap and clip stay fixed.
+                ctx.save();
+                ctx.translate(anchorX, strapEnd+motion.y);
+                ctx.rotate(motion.angle);
                 if (portraitReady) {
-                    ctx.drawImage(portrait,-photoWidth/2,photoY,photoWidth,photoHeight);
+                    ctx.drawImage(portrait,-photoWidth/2,42,photoWidth,photoHeight);
                 } else {
                     ctx.fillStyle = '#9aaec1'; ctx.font = '12px Plus Jakarta Sans'; ctx.textAlign = 'center';
-                    ctx.fillText('Tambahkan assets/andini-transparent.png',0,photoY+42,maxPhotoWidth);
+                    ctx.fillText('Tambahkan assets/andini-transparent.png',0,42+42,maxPhotoWidth);
                 }
+                ctx.restore();
 
-                // Existing lanyard clip, drawn in front of the portrait's top edge.
+                // The clip remains fixed with the strap.
                 ctx.save();
                 ctx.lineWidth = 5; ctx.strokeStyle = '#a8b5c2'; ctx.fillStyle = '#718397';
                 ctx.beginPath(); ctx.arc(0,clipY+8,15,Math.PI*.12,Math.PI*.88); ctx.stroke();
                 roundedRectPath(-9,clipY+8,18,31,7); ctx.fill(); ctx.strokeStyle='#c8d1da';ctx.lineWidth=2;ctx.stroke();
                 ctx.beginPath(); ctx.moveTo(0,clipY+37);ctx.bezierCurveTo(-12,clipY+48,-10,clipY+59,0,clipY+59);ctx.bezierCurveTo(10,clipY+59,12,clipY+48,0,clipY+42);ctx.stroke();
-                ctx.restore();
                 ctx.restore();
                 requestAnimationFrame(drawLanyard);
             }
