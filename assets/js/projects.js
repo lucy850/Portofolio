@@ -10,7 +10,7 @@ const projects = {
                 shots:['assets/projects/sscrypto.png','assets/projects/sscrypto1.png','assets/projects/sscrypto2.png']
             },
             'belajaryuk': {
-                title:'Belajaryuk', category:'Project Belajaryuk', github:'',
+                title:'Belajaryuk', category:'Project Belajaryuk', github:'https://github.com/AldiTaufikurohman/project-digital-entrepreneurship',
                 overview:'Belajaryuk adalah platform belajar digital yang menampilkan modul e-learning dan program bootcamp, dengan halaman pengguna serta dashboard admin.',
                 background:'Materi project memperlihatkan platform untuk mempelajari skill digital melalui modul terstruktur dan program bootcamp. Tampilan sebelum login, setelah login, dan dashboard admin menunjukkan kebutuhan untuk menyajikan pengalaman bagi pengguna sekaligus menyediakan pemantauan bagi pengelola.',
                 objective:'Menyajikan platform belajar digital yang membantu pengguna menemukan program belajar, serta memberi pengelola tampilan untuk memantau produk, transaksi, dan aktivitas pengguna.',
@@ -109,7 +109,7 @@ const projects = {
             }
         };
         const toggleButtons=[document.getElementById('themeToggle')].filter(Boolean);
-        function setTheme(theme){const light=theme==='light';document.body.classList.toggle('light-theme',light);try{localStorage.setItem('portfolio-theme',light?'light':'dark')}catch(error){}toggleButtons.forEach(button=>{button.innerHTML=`<i class="fa-solid fa-${light?'moon':'sun'}"></i><span>Toggle theme</span>`;button.setAttribute('aria-label',`Switch to ${light?'dark':'light'} mode`)})}
+        function setTheme(theme){const light=theme==='light';document.body.classList.toggle('light-theme',light);try{localStorage.setItem('portfolio-theme',light?'light':'dark')}catch(error){}toggleButtons.forEach(button=>{button.setAttribute('aria-checked',String(light));button.setAttribute('aria-label',`Switch to ${light?'dark':'light'} mode`);button.title=`Switch to ${light?'dark':'light'} mode`})}
         let saved='dark';try{saved=localStorage.getItem('portfolio-theme')||'dark'}catch(error){}setTheme(saved);
         toggleButtons.forEach(button=>button.addEventListener('click',()=>setTheme(document.body.classList.contains('light-theme')?'dark':'light')));
 
@@ -182,6 +182,13 @@ const projects = {
             const links=projectKey==='uiux-showcase'?'':`<div class="case-links">${projectKey==='face-recognition'?resourceLink(project.pdf,'Tugas Web (PDF)','fa-regular fa-file-pdf'):resourceLink(project.github,'GitHub','fa-brands fa-github')}</div>`;
             section.innerHTML=`<div class="case-top"><a class="back-link" href="projek.html">← Back to Projects</a></div><header class="case-hero"><p class="category">${project.category}</p><h1>${project.title}</h1><p class="case-overview">${project.overview}</p>${links}</header><div class="case-grid">${field('Background / Problem',paragraph(project.background))}${field('Objective',paragraph(project.objective))}${field('Features',listItems(project.features))}${field('Technology Used',tech(project.tech)+(project.techDescription?paragraph(project.techDescription):''))}${field('Project Process / How It Works',listItems(project.process))}${project.result?field('Result / Output',paragraph(project.result)):''}</div>${video}<section class="screenshots">${projectKey==='belajaryuk'?'<p class="video-step">04 / VISUAL OVERVIEW</p><h2>Screenshots</h2><p class="video-description">Cuplikan gambar antarmuka Belajaryuk untuk melengkapi tiga rekaman video di atas.</p>':projectKey==='uiux-showcase'?'<h2>UI/UX Screenshots</h2>':'<h2>Screenshots</h2>'}<div class="shot-grid${projectKey==='uiux-showcase'?' uiux-shot-grid':''}">${screenshots}</div>${figmaLinks}</section>`;
         }
+        const filterButtons=document.querySelectorAll('.project-filter');
+        const projectCards=document.querySelectorAll('.project-grid .project-card');
+        filterButtons.forEach(button=>button.addEventListener('click',()=>{
+            const filter=button.dataset.filter;
+            filterButtons.forEach(item=>{const active=item===button;item.classList.toggle('is-active',active);item.setAttribute('aria-pressed',String(active))});
+            projectCards.forEach(card=>{card.hidden=filter!=='all'&&card.dataset.category!==filter});
+        }));
         const selected=new URLSearchParams(location.search).get('project');
         if(selected&&projects[selected])renderDetail(projects[selected],selected);
         else if(selected){const detail=document.getElementById('projectDetail');detail.hidden=false;detail.innerHTML='<div class="case-top"><a class="back-link" href="projek.html">← Back to Projects</a></div><h1>Project tidak ditemukan</h1>';document.getElementById('projectList').hidden=true}
