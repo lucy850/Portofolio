@@ -9,7 +9,16 @@ const projects = {
                 process:['Membangun visual dan interaksi 3D menggunakan Three.js.','Menghubungkan konsep Web3 dengan Motoko dan Internet Computer pada prototipe.'],
                 shots:['assets/projects/sscrypto.png','assets/projects/sscrypto1.png','assets/projects/sscrypto2.png']
             },
-            'belajaryuk': {
+            'photo-strip': {
+                title:'Photo Strip', category:'Web / Photo Booth', github:'',
+                overview:'Aplikasi photo booth berbasis web untuk mengambil foto, menyusunnya menjadi photo strip, menambahkan filter dan stiker, lalu mengunduh hasilnya.',
+                background:'Photo Strip menyediakan pengalaman membuat photo strip digital dengan tampilan yang sederhana dan dekoratif.',
+                objective:'Membantu pengguna membuat dan menyimpan photo strip langsung melalui browser.',
+                features:['Mengambil foto melalui antarmuka photo booth','Memilih filter dan stiker untuk dekorasi','Menyusun foto dalam format strip dan mengunduh hasilnya'],
+                tech:['HTML','CSS','JavaScript'],
+                process:['Pengguna mengambil foto melalui photo booth.','Foto disusun menjadi strip, lalu pengguna dapat menambahkan filter dan stiker.','Hasil photo strip dapat diunduh.'],
+                shots:['assets/projects/photo-strip.png','assets/projects/photo-strip1.png','assets/projects/photo-strip (24).png']
+            },            'belajaryuk': {
                 title:'Belajaryuk', category:'Project Belajaryuk', github:'https://github.com/AldiTaufikurohman/project-digital-entrepreneurship',
                 overview:'Belajaryuk adalah platform belajar digital yang menampilkan modul e-learning dan program bootcamp, dengan halaman pengguna serta dashboard admin.',
                 background:'Materi project memperlihatkan platform untuk mempelajari skill digital melalui modul terstruktur dan program bootcamp. Tampilan sebelum login, setelah login, dan dashboard admin menunjukkan kebutuhan untuk menyajikan pengalaman bagi pengguna sekaligus menyediakan pemantauan bagi pengelola.',

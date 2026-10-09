@@ -22,7 +22,7 @@
         .scroll-wave [data-water-crest] { fill:none;stroke:rgba(220,239,255,.45);stroke-width:2;stroke-linecap:round;stroke-dasharray:2 11;filter:drop-shadow(0 0 5px rgba(184,220,250,.55));opacity:.62; }
         body.light-theme .scroll-wave { opacity:.23; }
         .cursor-glow { position:fixed;top:0;left:0;z-index:0;width:460px;height:460px;border-radius:50%;pointer-events:none;opacity:.68;background:radial-gradient(circle,rgba(67,142,239,.22) 0%,rgba(67,142,239,.12) 27%,rgba(67,142,239,.045) 48%,transparent 72%);filter:blur(10px);transform:translate3d(var(--cursor-x,-1000px),var(--cursor-y,-1000px),0) translate(-50%,-50%);transition:transform .22s cubic-bezier(.2,.7,.2,1);will-change:transform; }
-        body.light-theme .cursor-glow { opacity:.42; }
+        body.light-theme .cursor-glow { opacity:.82;background:radial-gradient(circle,rgba(37,99,235,.30) 0%,rgba(37,99,235,.18) 27%,rgba(37,99,235,.07) 48%,transparent 72%);filter:blur(5px); }
         @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce) { .cursor-glow { display:none; } }
         .glass-panel { background:var(--surface);border:1px solid var(--line); }
         .glass-nav { background:rgba(11,18,32,.94); border-bottom:1px solid var(--line); backdrop-filter:blur(10px); }
@@ -160,6 +160,8 @@
         .experience-card h3 { margin:0;color:var(--ink);font-size:1.05rem;line-height:1.45;font-weight:750; }
         .experience-role { margin:.35rem 0 .85rem;color:var(--accent);font-size:.77rem;font-weight:700; }
         .experience-card>p:last-child { margin:0;color:var(--muted);font-size:.82rem;line-height:1.75; }
+        .experience-summary { margin:0;color:var(--muted);font-size:.82rem;line-height:1.75; }
+        .experience-detail-button { margin-top:.9rem;padding:.55rem .8rem;font-size:.78rem; }
         @media (max-width:640px) { .experience-section { padding-top:3rem;padding-bottom:3rem; } .experience-heading { align-items:flex-start;flex-direction:column; } .experience-grid { grid-template-columns:24px minmax(0,1fr);gap:0 .9rem; } .experience-grid::before,.experience-grid::after { left:12px; } .experience-grid .experience-card:nth-child(n) { grid-column:2;grid-row:auto;margin-bottom:1rem;padding:1.15rem;border:1px solid var(--line);border-radius:1rem;background:var(--surface);touch-action:manipulation;transition:transform .2s,border-color .2s,background .2s; } .experience-grid .experience-card:nth-child(n):hover { transform:none;border-color:var(--line);box-shadow:none;background:var(--surface); } .experience-grid .experience-card:nth-child(n):active { transform:scale(.985);border-color:var(--accent);background:var(--surface-soft); } .experience-card::before,.experience-card:nth-child(even)::before { left:-1.57rem;right:auto;top:1.45rem;width:.9rem;height:.9rem;border-width:2px; } .experience-card:last-child { margin-bottom:0; } }
         .gallery-stack { position:relative;width:min(100%,760px);height:478px;margin:0 auto;touch-action:pan-y;user-select:none; }
         .gallery-card { position:absolute;top:0;left:50%;width:100%;height:420px;overflow:hidden;border-radius:1rem;border:1px solid var(--line);background:var(--surface);box-shadow:0 14px 35px rgba(0,0,0,.22);cursor:grab;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .45s,filter .45s,rotate .7s,border-color .35s,box-shadow .45s; }
@@ -189,6 +191,7 @@
         .daily-card img { width:100%;height:100%;object-fit:cover; }
         .daily-card img:not([src]) { display:none; }
         .daily-card .daily-label { position:absolute;inset:auto 0 0;padding:2.5rem 1rem .9rem;color:var(--ink);font-size:.8rem;background:linear-gradient(transparent,rgba(7,14,24,.88)); }
+        .daily-label small { display:block;margin-top:.25rem;color:rgba(241,245,249,.82);font-size:.68rem;line-height:1.4; }
         .daily-placeholder { position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:.5rem;padding:1rem;color:var(--muted);font-size:.8rem; }
         .daily-card.has-image .daily-placeholder { display:none; }
         .certificate-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem; }
@@ -223,8 +226,10 @@
         .contact-form input:focus,.contact-form textarea:focus { border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent); }
         .contact-form textarea { min-height:110px;resize:vertical; }
         .contact-actions { display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.15rem; }
-        .contact-actions button { min-height:46px;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s; }
-        .contact-actions button:hover { transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.12); }
+        .contact-actions button { gap:.6rem;border-radius:.78rem;font-weight:700;letter-spacing:.01em;box-shadow:0 6px 16px rgba(0,0,0,.16);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s,border-color .24s,background .24s,color .24s; }
+        .contact-actions button:hover { transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.2); }
+        .contact-actions button i { transition:transform .24s; }
+        .contact-actions button:hover i { transform:scale(1.12); }
         .contact-status { min-height:1.2rem;margin:0;color:var(--muted);font-size:.78rem; }
         .project-modal { overflow:auto; }
         .modal-panel { background:var(--surface);border:1px solid var(--line);color:var(--ink); }
@@ -278,10 +283,13 @@
         @media (max-width: 900px) { .projects-grid,.certificate-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .about-composition { grid-template-columns:minmax(0,.72fr) minmax(0,1.45fr) minmax(0,.72fr);gap:.5rem; } .about-lanyard { height:420px; } #aboutLanyardMountOne { height:470px; } .hero-content { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:1.5rem; } .hero-portrait { width:min(100%,175px); } }
         @media (max-width: 640px) {
             .site-brand { font-size:1rem!important;line-height:1.2;white-space:nowrap; }
-            .theme-toggle { width:58px;height:34px;padding:0 7px; }
-            .theme-toggle i { font-size:.75rem; }
-            .theme-toggle-thumb { top:4px;width:24px;height:24px; }
-            .theme-toggle[aria-checked="true"] .theme-toggle-thumb { transform:translateX(28px); }
+            .hamburger-toggle { width:36px;height:36px;border-radius:10px; }
+            .theme-toggle { width:50px;height:30px;padding:0 6px; }
+            .theme-toggle i { font-size:.68rem; }
+            .theme-toggle-thumb { top:4px;width:22px;height:22px; }
+            .theme-toggle[aria-checked="true"] .theme-toggle-thumb { transform:translateX(22px); }
+            .primary-button,.secondary-button,.match-certificate-button { min-height:38px;padding:.55rem .8rem;font-size:.8rem; }
+            .project-modal button { width:36px;height:36px; }
             .content-section { width:min(100% - 1.25rem,1180px);padding:2.2rem 0; }
             #hero { min-height:auto;padding-top:6rem!important;padding-bottom:1.25rem!important; }
             .scroll-wave { left:-34vw;width:168vw;height:250px;bottom:-6rem;opacity:.42; }
@@ -311,11 +319,21 @@
             .contact-direct { display:grid;grid-template-columns:repeat(2,minmax(0,1fr)); }
             .contact-actions>* { flex:1 1 180px; }
         }
-        @media (max-width:640px) { .contact-direct { grid-template-columns:1fr;gap:.6rem; } .contact-method { min-height:62px;padding:.85rem; } .contact-actions { display:grid;grid-template-columns:1fr; } .contact-actions>* { width:100%;min-height:50px; } }
+        @media (max-width:640px) { .contact-direct { grid-template-columns:1fr;gap:.6rem; } .contact-method { min-height:62px;padding:.85rem; } .contact-actions{display:flex;flex-wrap:wrap;gap:.55rem}.contact-actions>*{flex:1 1 auto;width:auto;min-height:38px;padding:.55rem .8rem;font-size:.8rem} }
         @media (min-width:640px) { .nav-panel { right:24px; } }
         @media (min-width:1024px) { .nav-panel { right:max(calc((100vw - 1280px)/2 + 32px),32px); } }
         @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important; } .skill-group.is-revealed,.content-section.is-revealed .section-heading::after { animation:none; } }
-    </style>
+            .achievement-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:1rem;margin-top:2rem; }
+        .achievement-card { position:relative;min-height:190px;padding:1.4rem;border:1px solid var(--line);border-radius:1.15rem;background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--surface) 86%,var(--accent)));overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s; }
+        .achievement-card::after { content:"";position:absolute;width:130px;height:130px;right:-56px;top:-60px;border-radius:50%;background:color-mix(in srgb,var(--accent) 12%,transparent);pointer-events:none; }
+        .achievement-card:hover { transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 50%,var(--line));box-shadow:0 16px 34px rgba(0,0,0,.14); }
+        .achievement-card-top { display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1.15rem; }
+        .achievement-icon { color:var(--accent);font-size:1.2rem; }
+        .achievement-type { padding:.35rem .6rem;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.64rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase; }
+        .achievement-card h3 { margin:0;color:var(--ink);font-size:1.05rem;line-height:1.4;font-weight:750; }
+        .achievement-card p { margin:.45rem 0 0;color:var(--muted);font-size:.82rem;line-height:1.7; }
+        .achievement-card .achievement-role { color:var(--accent);font-size:.74rem;font-weight:700; }
+        </style>
 </head>
 <body class="selection:bg-blue-600 selection:text-white">
 
@@ -347,13 +365,13 @@
         </div>
         <div id="navPanel" class="nav-panel" aria-hidden="true">
             <p class="nav-panel-label">Explore portfolio</p>
-            <a class="nav-panel-link" style="--item-index:0" href="#about"><i class="fa-regular fa-user"></i>About Me</a>
-            <a class="nav-panel-link" style="--item-index:1" href="#skills"><i class="fa-solid fa-layer-group"></i>My Skills</a>
-            <a class="nav-panel-link" style="--item-index:2" href="#projek"><i class="fa-regular fa-images"></i>Project Gallery</a>
-            <a class="nav-panel-link" style="--item-index:3" href="#life"><i class="fa-solid fa-camera"></i>Life & Activities</a>
-            <a class="nav-panel-link" style="--item-index:4" href="#pengalaman"><i class="fa-solid fa-briefcase"></i>Experience</a>
-            <a class="nav-panel-link" style="--item-index:5" href="#certificates"><i class="fa-regular fa-file-lines"></i>Certificates</a>
-            <a class="nav-panel-link" style="--item-index:6" href="#contact"><i class="fa-regular fa-paper-plane"></i>Contact</a>
+            <a class="nav-panel-link" style="--item-index:0" href="#about"><i class="fa-regular fa-user"></i>Tentang Saya</a>
+            <a class="nav-panel-link" style="--item-index:1" href="#skills"><i class="fa-solid fa-layer-group"></i>Keahlian</a>
+            <a class="nav-panel-link" style="--item-index:2" href="#projek"><i class="fa-regular fa-images"></i>Galeri Proyek</a>
+            <a class="nav-panel-link" style="--item-index:3" href="#life"><i class="fa-solid fa-camera"></i>Aktivitas</a>
+            <a class="nav-panel-link" style="--item-index:4" href="#pengalaman"><i class="fa-solid fa-briefcase"></i>Pengalaman</a>
+            <a class="nav-panel-link" style="--item-index:5" href="#certificates"><i class="fa-regular fa-file-lines"></i>Sertifikat</a>
+            <a class="nav-panel-link" style="--item-index:6" href="#contact"><i class="fa-regular fa-paper-plane"></i>Kontak</a>
             <div class="nav-panel-footer"><span>Andini Kemuning Prameswari</span></div>
         </div>
     </nav>
@@ -375,7 +393,7 @@
             </header>
             <div class="hero-actions flex flex-wrap gap-3 mt-6">
                 <a href="Andini%20Kemuning%20Prameswari%20(1).pdf" target="_blank" rel="noopener" class="primary-button"><i class="fa-regular fa-file-lines"></i> View CV</a>
-                <a href="#projek" class="secondary-button"><i class="fa-solid fa-arrow-down"></i> View Projects</a>
+                <a href="#projek" class="secondary-button"><i class="fa-solid fa-arrow-down"></i> Lihat Proyek</a>
                 <a href="https://github.com/lucy850" target="_blank" rel="noopener noreferrer" class="secondary-button"><i class="fa-brands fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/andini-kemuning-prameswari-07a90322a/" target="_blank" rel="noopener noreferrer" class="secondary-button"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
             </div>
@@ -385,7 +403,7 @@
 
     <!-- ABOUT ME -->
     <section id="about" class="content-section scroll-mt-24" data-reveal>
-        <div class="section-heading"><p>Kenali saya</p><h2>About Me</h2></div>
+        <div class="section-heading"><p>Kenali saya</p><h2>Tentang Saya</h2></div>
         <div class="about-composition">
           <div id="aboutLanyardMountOne" class="about-lanyard" aria-label="Interactive university internship lanyard"></div>
           <div class="about-copy">
@@ -398,7 +416,7 @@
 
     <!-- MY SKILLS -->
     <section id="skills" class="content-section scroll-mt-24" data-reveal>
-        <div class="section-heading"><p>Keahlian</p><h2>My Skills</h2></div>
+        <div class="section-heading"><p>Keahlian</p><h2>Keahlian</h2></div>
         <div class="skill-groups">
             <article class="skill-group" data-reveal-item><h3><i class="fa-solid fa-layer-group mr-2 text-blue-300"></i>Hard Skills</h3><div class="skill-list"><span class="skill-chip">UI/UX Design</span><span class="skill-chip">Web Development</span><span class="skill-chip">Data Mining</span><span class="skill-chip">Machine Learning</span><span class="skill-chip">Graphic Design</span><span class="skill-chip">Web Administration</span></div></article>
             <article class="skill-group" data-reveal-item><h3><i class="fa-solid fa-laptop-code mr-2 text-blue-300"></i>Programming / Technology</h3><p class="text-xs text-slate-400 mb-2">Programming</p><div class="skill-list mb-4"><span class="skill-chip">HTML</span><span class="skill-chip">CSS</span><span class="skill-chip">JavaScript</span><span class="skill-chip">PHP</span><span class="skill-chip">Java</span><span class="skill-chip">Python</span><span class="skill-chip">SQL / MySQL</span><span class="skill-chip">OpenCV</span></div><p class="text-xs text-slate-400 mb-2">Tools</p><div class="skill-list"><span class="skill-chip">Figma</span><span class="skill-chip">VS Code</span><span class="skill-chip">NetBeans</span><span class="skill-chip">Jupyter Notebook</span><span class="skill-chip">Git / GitHub</span></div></article>
@@ -408,14 +426,14 @@
 
     <!-- SELECTED PROJECT GALLERY -->
     <section id="projek" class="content-section scroll-mt-24" data-reveal>
-        <div class="section-heading"><p>Karya pilihan</p><h2>Projects</h2><span>Selected projects I've worked on throughout my learning and development journey.</span></div>
-        <div id="galleryStack" class="gallery-stack" aria-label="Project gallery, swipe atau drag untuk mengganti project">
-            <article class="gallery-card" data-project="cryptopet" tabindex="0" role="button" aria-label="CryptoPet. Klik atau geser untuk project berikutnya"><div class="gallery-media"><img src="assets/cryptopet.jpeg" alt="" class="gallery-image" draggable="false"><div class="gallery-placeholder">Screenshot belum tersedia</div></div><div class="gallery-info"><div><p>Web3 / 3D Game</p><h3>CryptoPet</h3></div><a class="primary-button gallery-detail match-certificate-button" href="projek.html?project=cryptopet">View Detail</a></div></article>
-            <article class="gallery-card" data-project="glowcheck" tabindex="0" role="button" aria-label="GlowCheck. Klik atau geser untuk project berikutnya"><div class="gallery-media"><img src="assets/glowcheck.jpeg" alt="" class="gallery-image" draggable="false"><div class="gallery-placeholder">Screenshot belum tersedia</div></div><div class="gallery-info"><div><p>Machine Learning</p><h3>GlowCheck</h3></div><a class="primary-button gallery-detail match-certificate-button" href="projek.html?project=glowcheck">View Detail</a></div></article>
-            <article class="gallery-card" data-project="student-performance" tabindex="0" role="button" aria-label="Student Performance. Klik atau geser untuk project berikutnya"><div class="gallery-media"><img src="assets/student.png" alt="" class="gallery-image" draggable="false"><div class="gallery-placeholder">Screenshot belum tersedia</div></div><div class="gallery-info"><div><p>Data Mining</p><h3>Student Performance / Data Mining</h3></div><a class="primary-button gallery-detail match-certificate-button" href="projek.html?project=student-performance">View Detail</a></div></article>
+        <div class="section-heading"><p>Karya pilihan</p><h2>Proyek</h2><span>Beberapa proyek yang saya kerjakan selama proses belajar dan pengembangan diri.</span></div>
+        <div id="galleryStack" class="gallery-stack" aria-label="Galeri proyek, geser untuk mengganti proyek">
+            <article class="gallery-card" data-project="cryptopet" tabindex="0" role="button" aria-label="CryptoPet. Klik atau geser untuk proyek berikutnya"><div class="gallery-media"><img src="assets/cryptopet.jpeg" alt="" class="gallery-image" draggable="false"><div class="gallery-placeholder">Screenshot belum tersedia</div></div><div class="gallery-info"><div><p>Web3 / 3D Game</p><h3>CryptoPet</h3></div><a class="primary-button gallery-detail match-certificate-button" href="projek.html?project=cryptopet">Lihat Detail</a></div></article>
+            <article class="gallery-card" data-project="glowcheck" tabindex="0" role="button" aria-label="GlowCheck. Klik atau geser untuk proyek berikutnya"><div class="gallery-media"><img src="assets/glowcheck.jpeg" alt="" class="gallery-image" draggable="false"><div class="gallery-placeholder">Screenshot belum tersedia</div></div><div class="gallery-info"><div><p>Machine Learning</p><h3>GlowCheck</h3></div><a class="primary-button gallery-detail match-certificate-button" href="projek.html?project=glowcheck">Lihat Detail</a></div></article>
+            <article class="gallery-card" data-project="student-performance" tabindex="0" role="button" aria-label="Student Performance. Klik atau geser untuk proyek berikutnya"><div class="gallery-media"><img src="assets/student.png" alt="" class="gallery-image" draggable="false"><div class="gallery-placeholder">Screenshot belum tersedia</div></div><div class="gallery-info"><div><p>Data Mining</p><h3>Student Performance / Data Mining</h3></div><a class="primary-button gallery-detail match-certificate-button" href="projek.html?project=student-performance">Lihat Detail</a></div></article>
         </div>
-        <p id="galleryPosition" class="gallery-position" aria-live="polite">Project 1 of 3 / CryptoPet</p>
-        <div class="text-center mt-7"><a href="projek.html" class="primary-button match-certificate-button">View All Projects <i class="fa-solid fa-arrow-right"></i></a></div>
+        <p id="galleryPosition" class="gallery-position" aria-live="polite">Proyek 1 dari 3 / CryptoPet</p>
+        <div class="text-center mt-7"><a href="projek.html" class="primary-button match-certificate-button">Lihat Semua Proyek <i class="fa-solid fa-arrow-right"></i></a></div>
     </section>
 
     <!-- LIFE & ACTIVITIES -->
@@ -423,27 +441,29 @@
         <div class="section-heading"><p>Beyond the screen</p><h2>Life &amp; Activities</h2><span>A glimpse of my activities, projects, organizations, and learning journey.</span></div>
         <div class="daily-marquee" aria-label="Activity photo carousel">
             <div class="daily-track">
-                <figure class="daily-card"><img src="assets/daily1.png" alt="Simulasi topologi jaringan komputer dengan server, router, switch, dan komputer" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Simulasi topologi jaringan komputer<br>assets/daily1.png</span></div><figcaption class="daily-label">Simulasi Topologi Jaringan Komputer</figcaption></figure>
-                <figure class="daily-card"><img src="assets/daily2.jpg" alt="Diskusi dan bimbingan di laboratorium komputer" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Diskusi dan bimbingan di laboratorium komputer<br>assets/daily2.jpg</span></div><figcaption class="daily-label">Diskusi &amp; Bimbingan di Laboratorium Komputer</figcaption></figure>
-                <figure class="daily-card"><img src="activity.png" alt="Desain aplikasi rutinitas skincare di Figma" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Desain aplikasi rutinitas skincare<br>activity.png</span></div><figcaption class="daily-label">Desain UI/UX Aplikasi Skincare</figcaption></figure>
-                <figure class="daily-card"><img src="activity1.png" alt="Diagram kelas UML untuk sistem PPDB dan seleksi siswa" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Diagram UML sistem PPDB<br>activity1.png</span></div><figcaption class="daily-label">Perancangan Sistem PPDB dengan UML</figcaption></figure>
-                <figure class="daily-card" aria-hidden="true"><img src="assets/daily1.png" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>assets/daily1.png</span></div><figcaption class="daily-label">Simulasi Topologi Jaringan Komputer</figcaption></figure>
-                <figure class="daily-card" aria-hidden="true"><img src="assets/daily2.jpg" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>assets/daily2.jpg</span></div><figcaption class="daily-label">Diskusi &amp; Bimbingan di Laboratorium Komputer</figcaption></figure>
-                <figure class="daily-card" aria-hidden="true"><img src="activity.png" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>activity.png</span></div><figcaption class="daily-label">Desain UI/UX Aplikasi Skincare</figcaption></figure>
-                <figure class="daily-card" aria-hidden="true"><img src="activity1.png" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>activity1.png</span></div><figcaption class="daily-label">Perancangan Sistem PPDB dengan UML</figcaption></figure>
+                <figure class="daily-card"><img src="assets/daily1.png" alt="Simulasi topologi jaringan komputer dengan server, router, switch, dan komputer" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Simulasi topologi jaringan komputer<br>assets/daily1.png</span></div><figcaption class="daily-label">Simulasi Topologi Jaringan Komputer<small>Menyusun koneksi perangkat, router, dan server dalam jaringan.</small></figcaption></figure>
+                <figure class="daily-card"><img src="assets/daily2.jpg" alt="Kegiatan PKM: Pengabdian kepada Masyarakat" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Kegiatan PKM: Pengabdian kepada Masyarakat<br>assets/daily2.jpg</span></div><figcaption class="daily-label">Kegiatan PKM: Pengabdian kepada Masyarakat<small>Kegiatan bersama mahasiswa dalam program pengabdian kepada masyarakat.</small></figcaption></figure>
+                <figure class="daily-card"><img src="activity.png" alt="Desain aplikasi rutinitas skincare di Figma" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Desain aplikasi rutinitas skincare<br>activity.png</span></div><figcaption class="daily-label">Desain UI/UX Aplikasi Skincare<small>Menyusun tampilan aplikasi rutinitas skincare di Figma.</small></figcaption></figure>
+                <figure class="daily-card"><img src="activity1.png" alt="Diagram kelas UML untuk sistem PPDB dan seleksi siswa" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Diagram UML sistem PPDB<br>activity1.png</span></div><figcaption class="daily-label">Perancangan Sistem PPDB dengan UML<small>Memetakan struktur dan alur sistem PPDB melalui diagram UML.</small></figcaption></figure>
+                <figure class="daily-card"><img src="assets/daily.jpeg" alt="Foto bersama mahasiswa di area kampus" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>Foto bersama mahasiswa<br>assets/daily.jpeg</span></div><figcaption class="daily-label">Kegiatan Bersama Mahasiswa<small>Mengikuti kegiatan dan berfoto bersama di lingkungan kampus.</small></figcaption></figure>
+                <figure class="daily-card" aria-hidden="true"><img src="assets/daily1.png" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>assets/daily1.png</span></div><figcaption class="daily-label">Simulasi Topologi Jaringan Komputer<small>Menyusun koneksi perangkat, router, dan server dalam jaringan.</small></figcaption></figure>
+                <figure class="daily-card" aria-hidden="true"><img src="assets/daily2.jpg" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>assets/daily2.jpg</span></div><figcaption class="daily-label">Kegiatan PKM: Pengabdian kepada Masyarakat<small>Kegiatan bersama mahasiswa dalam program pengabdian kepada masyarakat.</small></figcaption></figure>
+                <figure class="daily-card" aria-hidden="true"><img src="activity.png" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>activity.png</span></div><figcaption class="daily-label">Desain UI/UX Aplikasi Skincare<small>Menyusun tampilan aplikasi rutinitas skincare di Figma.</small></figcaption></figure>
+                <figure class="daily-card" aria-hidden="true"><img src="activity1.png" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>activity1.png</span></div><figcaption class="daily-label">Perancangan Sistem PPDB dengan UML<small>Memetakan struktur dan alur sistem PPDB melalui diagram UML.</small></figcaption></figure>
+                <figure class="daily-card" aria-hidden="true"><img src="assets/daily.jpeg" alt="" onload="this.parentElement.classList.add('has-image')" onerror="this.hidden=true"><div class="daily-placeholder"><i class="fa-regular fa-image"></i><span>assets/daily.jpeg</span></div><figcaption class="daily-label">Kegiatan Bersama Mahasiswa<small>Mengikuti kegiatan dan berfoto bersama di lingkungan kampus.</small></figcaption></figure>
             </div>
         </div>
     </section>
 
     <!-- CERTIFICATES -->
     <section id="certificates" class="content-section scroll-mt-24" data-reveal>
-        <div class="section-heading"><p>Dokumen pendukung</p><h2>Certificates</h2></div>
+        <div class="section-heading"><p>Dokumen pendukung</p><h2>Sertifikat</h2></div>
         <div class="certificate-grid">
             <article class="certificate-card" data-reveal-item><a class="certificate-preview-link" href="assets/sertifikat/Sertifikatlomba.jpeg" data-certificate-zoom data-title="Sertifikat Lomba"><img src="assets/sertifikat/Sertifikatlomba.jpeg" alt="Sertifikat lomba"></a><h3>Sertifikat Lomba</h3><p>Sertifikat kegiatan lomba.</p><a class="secondary-button" href="assets/sertifikat/Sertifikatlomba.jpeg" data-certificate-zoom data-title="Sertifikat Lomba">Detail sertifikat</a></article>
             <article class="certificate-card" data-reveal-item><a class="certificate-preview-link" href="assets/sertifikat/sertifikat%20englishnesia.png" data-certificate-zoom data-title="Englishnesia Certificate of Completion"><img src="assets/sertifikat/sertifikat%20englishnesia.png" alt="Englishnesia certificate of completion awarded to Andini Kemuning Prameswari on 30 August 2026"></a><h3>Englishnesia Certificate of Completion</h3><p>Successfully completed all courses on Englishnesia. Issued to Andini Kemuning Prameswari on 30 August 2026.</p><a class="secondary-button" href="assets/sertifikat/sertifikat%20englishnesia.png" data-certificate-zoom data-title="Englishnesia Certificate of Completion">Detail sertifikat</a></article>
             <article class="certificate-card" data-reveal-item><a class="certificate-preview-link" href="assets/sertifikat/Sertifikat%20sololearn%20python.jpeg" data-certificate-zoom data-title="Sertifikat SoloLearn Python"><img src="assets/sertifikat/Sertifikat%20sololearn%20python.jpeg" alt="Sertifikat SoloLearn Python"></a><h3>Sertifikat SoloLearn Python</h3><p>Sertifikat pelatihan Python dari SoloLearn.</p><a class="secondary-button" href="assets/sertifikat/Sertifikat%20sololearn%20python.jpeg" data-certificate-zoom data-title="Sertifikat SoloLearn Python">Detail sertifikat</a></article>
         </div>
-        <div class="text-center mt-7"><a href="sertifikat.html" class="primary-button match-certificate-button">See All Certificates <i class="fa-solid fa-arrow-right"></i></a></div>
+        <div class="text-center mt-7"><a href="sertifikat.html" class="primary-button match-certificate-button">Lihat Semua Sertifikat <i class="fa-solid fa-arrow-right"></i></a></div>
     </section>
 
     <!-- PENGALAMAN KERJA -->
@@ -459,36 +479,59 @@
             </div>
             <div class="experience-grid">
                 <article class="experience-card" data-reveal-item>
-                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-laptop-code"></i></span><span class="experience-type">Magang</span></div>
+                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-laptop-code"></i></span><span class="experience-type">Magang · 6 bulan</span></div>
                     <h3>Web Administrator - UNPAM</h3>
                     <p class="experience-role">UI/UX &amp; Front-End</p>
-                    <p>Mendukung pengelolaan web dengan fokus pada pengalaman pengguna dan tampilan front-end yang rapi, responsif, serta mudah digunakan.</p>
+                    <p class="experience-summary">Mendukung pengelolaan web dengan fokus pada pengalaman pengguna dan tampilan front-end yang rapi, responsif, serta mudah digunakan.</p>
+                    <button class="secondary-button experience-detail-button" type="button" onclick="openModal('modal-unpam')">Lihat Kegiatan Magang <i class="fa-solid fa-arrow-right"></i></button>
                 </article>
                 <article class="experience-card" data-reveal-item>
                     <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-headset"></i></span><span class="experience-type">Part-time · 8 bulan</span></div>
                     <h3>Host Live - Hijab Syandana</h3>
                     <p class="experience-role">Live Commerce &amp; Customer Engagement</p>
                     <p>Memandu sesi live untuk memperkenalkan produk hijab, menjawab pertanyaan audiens, dan menjaga interaksi tetap aktif selama siaran.</p>
+                    <button class="secondary-button experience-detail-button" type="button" onclick="openModal('modal-hostlive')">Lihat Kegiatan Host Live <i class="fa-solid fa-arrow-right"></i></button>
                 </article>
                 <article class="experience-card" data-reveal-item>
                     <div class="experience-card-top"><span class="experience-icon"><i class="fa-brands fa-tiktok"></i></span><span class="experience-type">Kreator digital</span></div>
                     <h3>Content Creator - @lcyra_</h3>
                     <p class="experience-role">Beauty &amp; Lifestyle</p>
                     <p>Mengembangkan ide dan membuat konten seputar kecantikan, ulasan skincare, serta lifestyle untuk membangun komunikasi yang menarik dengan audiens.</p>
+                    <button class="secondary-button experience-detail-button" type="button" onclick="openModal('modal-contentcreator')">Lihat Kegiatan Konten <i class="fa-solid fa-arrow-right"></i></button>
                 </article>
-                <article class="experience-card" data-reveal-item>
-                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-shirt"></i></span><span class="experience-type">Magang · 6 bulan · 2022</span></div>
-                    <h3>Fashion Design Intern</h3>
+
+<article class="experience-card" data-reveal-item>
+                    <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-shirt"></i></span><span class="experience-type">Intern &middot; 6 bulan &middot; Part-time &middot; 8 bulan</span></div>
+                    <h3>Fashion Design Intern &amp; Part-time</h3>
                     <p class="experience-role">Fashion Design</p>
-                    <p>Mendapatkan pengalaman magang di bidang desain fashion selama enam bulan pada 2022.</p>
+                    <p>Mendapatkan pengalaman di bidang desain fashion melalui program intern selama enam bulan dan part-time selama delapan bulan.</p>
+                    <button class="secondary-button experience-detail-button" type="button" onclick="openModal('modal-fashion')">Lihat Kegiatan Fashion <i class="fa-solid fa-arrow-right"></i></button>
                 </article>
                 <article class="experience-card" data-reveal-item>
                     <div class="experience-card-top"><span class="experience-icon"><i class="fa-solid fa-pen-nib"></i></span><span class="experience-type">Freelance</span></div>
                     <h3>Freelance Graphic Designer</h3>
                     <p class="experience-role">Graphic Design</p>
                     <p>Mengerjakan kebutuhan desain grafis secara freelance.</p>
+                    <button class="secondary-button experience-detail-button" type="button" onclick="openModal('modal-freelance-design')">Lihat Karya Desain <i class="fa-solid fa-arrow-right"></i></button>
                 </article>
             </div>
+        </div>
+    </section>
+    <section id="lomba-organisasi" class="content-section scroll-mt-24" data-reveal>
+        <div class="section-heading"><p>Prestasi &amp; kegiatan kampus</p><h2>Lomba &amp; Organisasi</h2><span>Pengalaman mengikuti kompetisi serta berproses di organisasi kampus.</span></div>
+        <div class="achievement-grid">
+            <article class="achievement-card" data-reveal-item>
+                <div class="achievement-card-top"><i class="achievement-icon fa-solid fa-trophy" aria-hidden="true"></i><span class="achievement-type">Kompetisi</span></div>
+                <h3>GEMASTIK</h3><p class="achievement-role">Kompetisi Teknologi</p><p>Berpartisipasi dalam GEMASTIK, kompetisi mahasiswa di bidang teknologi dan informatika.</p>
+            </article>
+            <article class="achievement-card" data-reveal-item>
+                <div class="achievement-card-top"><i class="achievement-icon fa-brands fa-ethereum" aria-hidden="true"></i><span class="achievement-type">Kompetisi</span></div>
+                <h3>WCHL Blockchain</h3><p class="achievement-role">Web3 &amp; Pengembangan Game</p><p>Mengembangkan CryptoPet, prototipe game 3D berbasis Web3 dengan Three.js untuk kompetisi WCHL.</p>
+            </article>
+            <article class="achievement-card" data-reveal-item>
+                <div class="achievement-card-top"><i class="achievement-icon fa-solid fa-people-group" aria-hidden="true"></i><span class="achievement-type">Organisasi</span></div>
+                <h3>Informatics Study Club</h3><p class="achievement-role">English &amp; UI/UX</p><p>Mengikuti kegiatan organisasi pada bidang English dan UI/UX untuk mengembangkan kemampuan komunikasi serta desain antarmuka.</p>
+            </article>
         </div>
     </section>
     <!-- CONTACT -->
@@ -586,23 +629,91 @@
     </div>
 
     <!-- Modal 3: UNPAM Training Center -->
-    <div id="modal-unpam" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4">
+    <div id="modal-unpam" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4" role="dialog" aria-modal="true" aria-labelledby="unpam-internship-title">
         <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-blue-500/40 relative">
             <button onclick="closeModal('modal-unpam')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/40">Magang Web Administrator</span>
-            <h2 class="text-2xl font-bold text-white mt-3">Portal Web Training Center UNPAM</h2>
-            <p class="text-xs text-blue-400 font-mono mt-1">Laravel & Admin Dashboard Maintenance</p>
-            <div class="my-4 h-52 bg-slate-900 rounded-xl flex items-center justify-center border border-slate-800 text-slate-400 text-xs">
-                [ Screenshot Web Training Center UNPAM ]
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/40">Magang Web Administrator · 6 bulan</span>
+            <h2 id="unpam-internship-title" class="text-2xl font-bold text-white mt-3">Kegiatan Magang di Training Center UNPAM</h2>
+            <p class="text-xs text-blue-400 font-mono mt-1">Pengelolaan portal, antarmuka, dan dashboard admin</p>
+            <div class="my-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <img class="w-full h-72 object-contain rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/magangunpam.jpeg" alt="Presentasi program magang Fakultas Ilmu Komputer UNPAM">
+                <img class="w-full h-72 object-contain rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/magangunpam1.jpeg" alt="Cuplikan pengembangan dan pengelolaan portal Training Center UNPAM">
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
-                Projek magang di Universitas Pamulang sebagai Web Administrator. Mengelola konten situs web resmi Training Center, antarmuka pengguna, serta alur pendaftaran peserta.
+                Selama enam bulan magang sebagai Web Administrator di Universitas Pamulang, saya membantu mengelola konten portal Training Center, memperbarui antarmuka agar tetap rapi dan mudah digunakan, serta mendukung pemeliharaan dashboard admin dan alur pendaftaran peserta. Kegiatan ini melatih ketelitian dalam mengelola website dan membantu saya memahami kebutuhan pengguna.
             </p>
+            <a class="primary-button mt-5" href="projek.html?project=training-center-unpam">Lihat Proyek <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
     </div>
 
+    <div id="modal-hostlive" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4" role="dialog" aria-modal="true" aria-labelledby="hostlive-title">
+        <div class="glass-panel w-full max-w-4xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-blue-500/40 relative">
+            <button onclick="closeModal('modal-hostlive')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl" aria-label="Tutup detail Host Live">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/40">Part-time · 8 bulan</span>
+            <h2 id="hostlive-title" class="text-2xl font-bold text-white mt-3">Pengalaman Host Live Hijab Syandana</h2>
+            <p class="text-xs text-blue-400 font-mono mt-1">Live Commerce &amp; Interaksi Pelanggan</p>
+            <p class="text-xs text-slate-300 leading-relaxed mt-4">Selama delapan bulan sebagai host live, saya memperkenalkan produk Hijab Syandana, menyampaikan informasi produk, menanggapi pertanyaan audiens, dan menjaga interaksi selama siaran. Pengalaman ini mengasah kemampuan komunikasi, penyampaian informasi, dan respons terhadap kebutuhan pelanggan.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
+                <img class="w-full h-40 object-cover rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/hostlive.jpeg" alt="Foto kegiatan Host Live Hijab Syandana">
+                <img class="w-full h-40 object-cover rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/hostlive1.jpeg" alt="Dokumentasi kegiatan Host Live Hijab Syandana 1">
+                <img class="w-full h-40 object-cover rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/hostlive2.jpeg" alt="Dokumentasi kegiatan Host Live Hijab Syandana 2">
+                <img class="w-full h-40 object-cover rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/hostlive3.jpeg" alt="Dokumentasi kegiatan Host Live Hijab Syandana 3">
+                <img class="w-full h-40 object-cover rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/hostlive4.jpeg" alt="Dokumentasi kegiatan Host Live Hijab Syandana 4">
+                <img class="w-full h-40 object-cover rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/hostlive5.jpeg" alt="Dokumentasi kegiatan Host Live Hijab Syandana 5">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-contentcreator" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4" role="dialog" aria-modal="true" aria-labelledby="contentcreator-title">
+        <div class="glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-pink-500/40 relative">
+            <button onclick="closeModal('modal-contentcreator')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl" aria-label="Tutup detail kegiatan konten">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold border border-pink-500/40">Kreator Digital · Beauty &amp; Lifestyle</span>
+            <h2 id="contentcreator-title" class="text-2xl font-bold text-white mt-3">Kegiatan Content Creator</h2>
+            <p class="text-xs text-pink-300 font-mono mt-1">Konten kecantikan, ulasan skincare, dan keseharian</p>
+            <p class="text-xs text-slate-300 leading-relaxed mt-4">Saya merancang dan membagikan konten seputar makeup, ulasan produk kecantikan, skincare, dan keseharian di media sosial. Kegiatan ini mencakup mencari ide, menyusun konsep visual, membuat konten, serta menyampaikan informasi dengan cara yang menarik bagi audiens.</p>
+            <img class="mt-5 w-full max-h-[70vh] object-contain rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/kontenkreator.jpeg" alt="Kumpulan konten kecantikan, makeup, ulasan produk, dan keseharian dari akun @lcyra_">
+        </div>
+    </div>
+
+    <div id="modal-fashion" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4" role="dialog" aria-modal="true" aria-labelledby="fashion-title">
+        <div class="glass-panel w-full max-w-4xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-amber-500/40 relative">
+            <button onclick="closeModal('modal-fashion')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl" aria-label="Tutup detail kegiatan fashion">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/40">Intern 6 bulan &middot; Part-time 8 bulan</span>
+            <h2 id="fashion-title" class="text-2xl font-bold text-white mt-3">Pengalaman Fashion Design</h2>
+            <p class="text-xs text-amber-300 font-mono mt-1">Kegiatan desain dan produksi fashion</p>
+            <p class="text-xs text-slate-300 leading-relaxed mt-4">Saya mendapatkan pengalaman di bidang fashion melalui program intern selama enam bulan, kemudian melanjutkan sebagai part-time selama delapan bulan. Kegiatannya mencakup membantu proses desain dan menyiapkan kebutuhan produksi busana.</p>
+            <div class="grid grid-cols-2 items-center gap-3 mt-5">
+                <img class="w-full max-w-[240px] h-[420px] mx-auto object-cover object-center rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/fashion.jpeg" alt="Dokumentasi kegiatan desain fashion dan busana">
+                <div class="w-full max-w-[240px] h-[420px] mx-auto overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+                    <img class="w-full h-full object-cover scale-[1.25]" style="object-position:center 50%" src="assets/projects/fashion1.jpeg" alt="Dokumentasi busana hasil kegiatan fashion design">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-freelance-design" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4" role="dialog" aria-modal="true" aria-labelledby="freelance-design-title">
+        <div class="glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-cyan-500/40 relative">
+            <button onclick="closeModal('modal-freelance-design')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl" aria-label="Tutup karya desain grafis">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/40">Freelance &middot; Graphic Design</span>
+            <h2 id="freelance-design-title" class="text-2xl font-bold text-white mt-3">Karya Desain Poster</h2>
+            <p class="text-xs text-slate-300 leading-relaxed mt-4">Beberapa karya poster yang saya buat sebagai bagian dari pengalaman freelance di bidang desain grafis.</p>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <img class="w-full h-64 object-contain rounded-xl border border-slate-800 bg-slate-900" src="assets/projects/poster.jpeg" alt="Karya poster desain grafis freelance">
+                <img class="w-full h-64 object-contain rounded-xl border border-slate-800 bg-slate-900" src="assets/art9.jpeg" alt="Karya seni art 9">
+                <img class="w-full h-64 object-contain rounded-xl border border-slate-800 bg-slate-900" src="assets/art10.jpeg" alt="Karya seni art 10">
+            </div>
+            <a class="secondary-button experience-detail-button mt-4 inline-flex" href="projek.html?project=digital-manual-art">Proyek Saya <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
     <!-- Modal 4: PetCoin Web3 -->
     <div id="modal-petcoin" class="project-modal fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden justify-center items-center p-4">
         <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-purple-500/40 relative">

@@ -170,7 +170,7 @@
                 });
                 const active = galleryCards[0];
                 const title = active?.querySelector('h3')?.textContent || '';
-                if (galleryPosition) galleryPosition.textContent = `Project 1 of ${galleryCards.length} / ${title}`;
+                if (galleryPosition) galleryPosition.textContent = `Proyek 1 dari ${galleryCards.length} / ${title}`;
             }
             function promoteCard(card) {
                 const index = galleryCards.indexOf(card);
