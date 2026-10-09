@@ -10,7 +10,7 @@ const projects = {
                 shots:['assets/projects/sscrypto.png','assets/projects/sscrypto1.png','assets/projects/sscrypto2.png']
             },
             'photo-strip': {
-                title:'Photo Strip', category:'Web / Photo Booth', github:'',
+                title:'Photo Strip', category:'Web / Photo Booth', github:'https://github.com/lucy850/Photo-Strip/',
                 overview:'Aplikasi photo booth berbasis web untuk mengambil foto, menyusunnya menjadi photo strip, menambahkan filter dan stiker, lalu mengunduh hasilnya.',
                 background:'Photo Strip menyediakan pengalaman membuat photo strip digital dengan tampilan yang sederhana dan dekoratif.',
                 objective:'Membantu pengguna membuat dan menyimpan photo strip langsung melalui browser.',
